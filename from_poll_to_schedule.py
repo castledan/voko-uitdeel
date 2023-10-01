@@ -27,7 +27,7 @@ def from_poll_to_schedule(survey_results):
         names = {}
         for h in hours:
             h_c = h.split('(')[0].strip()
-            names[h_c] = sorted(ans_date[ans_date[h]!='No']['Name'].tolist())
+            names[h_c] = sorted(ans_date[(ans_date[h]!='No') & (ans_date[h]!='Nee')]['Name'].tolist())
         try:
             locations.append(loc_dict[h.split('(')[1][:-1]])
         except:
