@@ -25,7 +25,7 @@ if upload_survey is not None:
 upload_uitdeellist = st.file_uploader("Upload the list of uitdeel members (in csv)")
 if upload_uitdeellist is not None:
     try:
-        volunteer_csv = pd.read_csv(upload_uitdeellist)
+        volunteer_csv = pd.read_csv(upload_uitdeellist, keep_default_na=False)
         uitdeel_uploaded = True
     except:
         st.error("File not valid. Check that the file is in csv format.")
@@ -48,12 +48,14 @@ if survey_results_uploaded and uitdeel_uploaded:
             [v.strip() for v in volunteer_csv.iloc[:, 1].dropna().tolist()]
             )
         ]
+    option_list = [o for o in option_list if o!=" "]
     coordinator_list = [
         name+" "+surname for (name, surname) in zip(
             [v.strip() for v in coordinators_csv.iloc[:, 0].dropna().tolist()], 
             [v.strip() for v in coordinators_csv.iloc[:, 1].dropna().tolist()]
             )
         ] 
+    coordinator_list = [o for o in coordinator_list if o!=" "]
 
     selections = {}
     other_options = {}
